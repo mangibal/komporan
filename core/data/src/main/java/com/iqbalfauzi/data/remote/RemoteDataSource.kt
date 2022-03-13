@@ -1,7 +1,6 @@
 package com.iqbalfauzi.data.remote
 
 import com.iqbalfauzi.data.model.ApiResponse
-import com.iqbalfauzi.data.model.DataResponse
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.external.extensions.logError
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +14,7 @@ class RemoteDataSource(
     private val apiService: ApiService
 ) {
 
-    suspend fun getAllPosts(): Flow<ApiResponse<DataResponse<List<PostEntity>>>> {
+    suspend fun getAllPosts(): Flow<ApiResponse<List<PostEntity>>> {
         return flow {
             try {
                 val response = apiService.getAllPosts()

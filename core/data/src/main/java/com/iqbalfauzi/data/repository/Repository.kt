@@ -25,7 +25,7 @@ class Repository(
                     .collect { apiResponse ->
                         when (apiResponse) {
                             is ApiResponse.Success -> {
-                                val data = apiResponse.data.data ?: emptyList()
+                                val data = apiResponse.data
                                 if (data.isNotEmpty()) {
                                     emit(DataCallback.Success(data))
                                 } else {

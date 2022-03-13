@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.iqbalfauzi.data.remote.networkModule
 import com.iqbalfauzi.external.extensions.timberInit
 import com.iqbalfauzi.komporan.koin.repositoryModule
+import com.iqbalfauzi.komporan.koin.viewModelModule
 import com.orhanobut.hawk.Hawk
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -34,7 +35,8 @@ class KomporanApp : Application() {
             modules(
                 listOf(
                     networkModule,
-                    repositoryModule
+                    repositoryModule,
+                    viewModelModule
                 )
             )
         }

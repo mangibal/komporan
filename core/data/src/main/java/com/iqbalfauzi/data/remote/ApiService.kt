@@ -17,7 +17,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("/posts")
-    suspend fun getAllPosts(): DataResponse<List<PostEntity>>
+    suspend fun getAllPosts(): List<PostEntity>
 
     @GET("/posts/{postId}")
     suspend fun getPost(@Path("postId") postId: Int): Response<PostEntity>
