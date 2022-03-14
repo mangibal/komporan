@@ -1,4 +1,4 @@
-package com.iqbalfauzi.komporan.presentation
+package com.iqbalfauzi.komporan.presentation.main.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import org.koin.core.component.KoinApiExtension
  * iqbal.fauzi.if99@gmail.com
  */
 @KoinApiExtension
-class MainViewModel : BaseViewModel() {
+class ProfileViewModel : BaseViewModel() {
 
     private val _allPosts: MutableLiveData<DataCallback<List<PostEntity>>> = MutableLiveData()
     val allPosts: LiveData<DataCallback<List<PostEntity>>> = _allPosts

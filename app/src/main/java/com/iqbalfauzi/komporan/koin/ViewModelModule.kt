@@ -1,6 +1,8 @@
 package com.iqbalfauzi.komporan.koin
 
-import com.iqbalfauzi.komporan.presentation.MainViewModel
+import com.iqbalfauzi.komporan.presentation.main.MainViewModel
+import com.iqbalfauzi.komporan.presentation.main.home.HomeViewModel
+import com.iqbalfauzi.komporan.presentation.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
@@ -12,5 +14,7 @@ import org.koin.dsl.module
 
 @OptIn(KoinApiExtension::class)
 val viewModelModule = module {
+    viewModel { SplashViewModel() }
     viewModel { MainViewModel() }
+    viewModel { HomeViewModel() }
 }

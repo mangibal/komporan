@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Komporan" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Komporan" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,84 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/TextViewBaseStyle</item>
     </style>
+
+    <style name="TextSplash">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/font64</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+    </style>
+
+    <style name="TextViewBaseStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextViewRobotoRegular12" parent="TextViewBaseStyle">
+        <item name="android:textSize">@dimen/font12</item>
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <style name="TextViewRobotoRegular14" parent="TextViewBaseStyle">
+        <item name="android:textSize">@dimen/font14</item>
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <style name="TextViewRobotoItalic12">
+        <item name="android:fontFamily">@font/roboto_italic</item>
+        <item name="android:textSize">@dimen/font12</item>
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <style name="TextViewRobotoItalic14" parent="TextViewRobotoItalic12">
+        <item name="android:textSize">@dimen/font14</item>
+        <item name="android:textColor">@color/lime_900</item>
+    </style>
+
+    <style name="TextViewRobotoMedium12">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/font12</item>
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <style name="TextViewRobotoMedium14" parent="TextViewRobotoMedium12">
+        <item name="android:textSize">@dimen/font14</item>
+    </style>
+
+    <style name="TextViewRobotoMedium16" parent="TextViewRobotoMedium12">
+        <item name="android:textSize">@dimen/font16</item>
+    </style>
+
+    <style name="TextViewRobotoBold12" parent="TextViewBaseStyle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/font12</item>
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <style name="TextViewRobotoBold14" parent="TextViewRobotoBold12">
+        <item name="android:textSize">@dimen/font14</item>
+    </style>
+
+    <style name="TextViewRobotoBold16" parent="TextViewRobotoBold12">
+        <item name="android:textSize">@dimen/font16</item>
+    </style>
+
+    <style name="TextViewRobotoBold18" parent="TextViewRobotoBold12">
+        <item name="android:textSize">@dimen/font18</item>
+    </style>
+
+    <style name="TextViewRobotoBold24" parent="TextViewRobotoBold12">
+        <item name="android:textSize">@dimen/font24</item>
+    </style>
+
+    <style name="ShapeAppearance.App.CircleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>
