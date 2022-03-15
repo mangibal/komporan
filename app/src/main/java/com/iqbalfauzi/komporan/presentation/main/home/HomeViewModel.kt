@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.iqbalfauzi.data.model.post.PostEntity
+import com.iqbalfauzi.data.model.user.UserData
 import com.iqbalfauzi.data.repository.DataCallback
 import com.iqbalfauzi.komporan.domain.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +19,17 @@ class HomeViewModel : BaseViewModel() {
 
     private val _allPosts: MutableLiveData<DataCallback<List<PostEntity>>> = MutableLiveData()
     val allPosts: LiveData<DataCallback<List<PostEntity>>> = _allPosts
+
+    private val _allUsers: MutableLiveData<List<UserData>> = MutableLiveData()
+    val allUsers: LiveData<List<UserData>> = _allUsers
+
+    fun getAllUsers() {
+        viewModelScope.launch {
+            repository.getAllUsersFromCache().collect {
+                _allUsers.postValue(it)
+            }
+        }
+    }
 
     fun getAllPosts() {
         viewModelScope.launch {

@@ -8,6 +8,7 @@ import com.iqbalfauzi.data.repository.DataCallback
 import com.iqbalfauzi.external.extensions.logError
 import com.iqbalfauzi.external.extensions.logInfo
 import com.iqbalfauzi.external.extensions.observe
+import com.iqbalfauzi.external.extensions.showToast
 import com.iqbalfauzi.komporan.databinding.ActivitySplashBinding
 import com.iqbalfauzi.komporan.domain.base.BaseActivity
 import kotlinx.coroutines.Dispatchers
@@ -24,16 +25,31 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(
 ) {
 
     override fun onInitUI(savedInstanceState: Bundle?) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            delay(1500)
-            withContext(Dispatchers.Main) {
-                router.navigateToMainScreen(this@SplashActivity)
-            }
-        }
+
     }
 
     override fun onInitData() {
+        with(viewModel) {
+            observe(isSuccess) { response ->
+                when (response) {
+                    is DataCallback.Loading -> {
+                        binding.pbLoading.show()
+                    }
+                    is DataCallback.Error -> {
+                        showToast(response.message)
+                    }
+                    is DataCallback.Success -> {
+                        if (response.value.isNotEmpty()) {
+                            router.navigateToMainScreen(this@SplashActivity)
+                        } else {
+                            showToast("Please wait, we're populating your data!")
+                        }
+                    }
+                }
+            }
 
+            getAllUsers()
+        }
     }
 
 }

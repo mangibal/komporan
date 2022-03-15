@@ -2,6 +2,7 @@ package com.iqbalfauzi.komporan.presentation.main.home
 
 import android.os.Bundle
 import com.iqbalfauzi.data.model.post.PostEntity
+import com.iqbalfauzi.data.model.user.UserData
 import com.iqbalfauzi.data.repository.DataCallback
 import com.iqbalfauzi.external.extensions.*
 import com.iqbalfauzi.komporan.R
@@ -29,6 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private var mSwipeRefresh = false
     private var mListPost: List<PostEntity> = emptyList()
+    private var mListUser: List<UserData> = emptyList()
 
     override fun onInitUI(savedInstanceState: Bundle?) {
         setupPostListComponent()
@@ -59,8 +61,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     override fun onInitData() {
         with(viewModel) {
             observe(allPosts, ::onPostsAvailable)
+            observe(allUsers, ::onUsersAvailable)
 
-            getAllPosts()
+            getAllUsers()
+        }
+    }
+
+    private fun onUsersAvailable(data: List<UserData>) {
+        if (data.isNotEmpty()) {
+            mListUser = data
+            viewModel.getAllPosts()
         }
     }
 
@@ -83,6 +93,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                         mSwipeRefresh = it
                     }
                     mListPost = data.value
+                    mListPost.forEach { post ->
+                        val user = mListUser.find {
+                            post.userId == it.id
+                        }
+                        post.userName = user?.username ?: ""
+                        post.userCompany = user?.companyName ?: ""
+                    }
                     postAdapter.addAll(mListPost)
                 }
             }
@@ -90,7 +107,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     override fun onClickShare(data: PostEntity) {
-
+        val message = getShareMessageFormat(data.title, data.userName)
+        requireContext().sharePost(message)
     }
 
 }

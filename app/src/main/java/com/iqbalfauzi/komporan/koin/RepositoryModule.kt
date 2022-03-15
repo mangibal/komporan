@@ -1,5 +1,6 @@
 package com.iqbalfauzi.komporan.koin
 
+import com.iqbalfauzi.data.local.LocalDataSource
 import com.iqbalfauzi.data.remote.RemoteDataSource
 import com.iqbalfauzi.data.repository.IRepository
 import com.iqbalfauzi.data.repository.Repository
@@ -10,7 +11,8 @@ import org.koin.dsl.module
  * iqbal.fauzi.if99@gmail.com
  */
 val repositoryModule = module {
-    single { RemoteDataSource(apiService = get()) }
+    factory { LocalDataSource(get()) }
+    factory { RemoteDataSource(apiService = get()) }
 
-    single<IRepository> { Repository(get()) }
+    single<IRepository> { Repository(get(), get()) }
 }

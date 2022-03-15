@@ -29,7 +29,7 @@ interface ApiService {
     suspend fun getAllComments(): Response<DataResponse<List<PostEntity>>>
 
     @GET("/users")
-    suspend fun getAllUsers(): Response<DataResponse<List<UserEntity>>>
+    suspend fun getAllUsers(): List<UserEntity>
 
     @GET("/users")
     suspend fun getUserDetail(@Query("id") userId: Int): Response<DataResponse<List<UserEntity>>>

@@ -2,6 +2,7 @@ package com.iqbalfauzi.komporan
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.iqbalfauzi.data.local.databaseModule
 import com.iqbalfauzi.data.remote.networkModule
 import com.iqbalfauzi.external.extensions.timberInit
 import com.iqbalfauzi.komporan.koin.appModule
@@ -35,6 +36,7 @@ class KomporanApp : Application() {
             androidContext(this@KomporanApp)
             modules(
                 listOf(
+                    databaseModule,
                     networkModule,
                     repositoryModule,
                     appModule,
