@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         return@lazy PostAdapter(this)
     }.also {
         it.value.setItemCallback { item: PostEntity ->
-            // TODO navigate to Post Detail Page
+            router.navigateToPostDetailScreen(requireActivity(), item)
         }
     }
 

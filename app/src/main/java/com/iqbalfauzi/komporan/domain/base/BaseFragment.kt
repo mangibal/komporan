@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.iqbalfauzi.komporan.domain.router.IScreenRouter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 import kotlin.reflect.KClass
@@ -24,6 +26,7 @@ abstract class BaseFragment<VB : ViewBinding, out VM : BaseViewModel>(
     protected val binding by lazy(LazyThreadSafetyMode.NONE) { viewBinder.invoke(layoutInflater) as VB }
     protected val viewModel: VM by viewModel(clazz = kClass)
     protected val sharedViewModel: VM by viewModel(clazz = kClass)
+    protected val router: IScreenRouter by inject()
 
     protected var dataReceived: Bundle? = null
     protected var rootView: View? = null

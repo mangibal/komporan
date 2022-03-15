@@ -3,6 +3,7 @@ package com.iqbalfauzi.komporan.domain.router
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.iqbalfauzi.data.model.post.PostEntity
 
 /**
  * Created by Iqbal Fauzi at 14/03/22
@@ -11,7 +12,6 @@ import android.content.Intent
 interface IScreenRouter {
 
     fun navigateToMainScreen(context: Activity)
-
-    fun getIntentScreen(context: Context, screen: ActivityScreen): Intent
+    fun navigateToPostDetailScreen(context: Activity, postEntity: PostEntity)
 
 }

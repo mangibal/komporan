@@ -5,7 +5,9 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.external.extensions.logError
 import com.iqbalfauzi.komporan.domain.base.BaseActivity
 import com.iqbalfauzi.komporan.presentation.main.MainActivity
@@ -17,20 +19,24 @@ import org.koin.core.component.KoinApiExtension
  * iqbal.fauzi.if99@gmail.com
  */
 @KoinApiExtension
-class ScreenRouter(private val application: Application): IScreenRouter {
+class ScreenRouter(private val application: Application) : IScreenRouter {
 
     override fun navigateToMainScreen(context: Activity) {
-        val screen = getIntentScreen(context, ActivityScreen.MainScreen)
+        val screen = Intent(context, ActivityScreen.MainScreen.INTENT)
         screen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         openActivity(context, screen)
     }
 
-    override fun getIntentScreen(context: Context, screen: ActivityScreen): Intent {
-        val klazz: Class<*> = when (screen) {
-            ActivityScreen.SplashScreen -> SplashActivity::class.java
-            ActivityScreen.MainScreen -> MainActivity::class.java
-        }
-        return Intent(context, klazz)
+    override fun navigateToPostDetailScreen(context: Activity, postEntity: PostEntity) {
+        val screen = Intent(context, ActivityScreen.PostDetailScreen.INTENT)
+
+        openActivity(
+            context,
+            screen,
+            bundleOf(
+                ActivityScreen.PostDetailScreen.POST_DATA_KEY to postEntity
+            )
+        )
     }
 
     private fun openActivity(
