@@ -31,8 +31,8 @@ interface ApiService {
     @GET("/users")
     suspend fun getAllUsers(): List<UserEntity>
 
-    @GET("/users")
-    suspend fun getUserDetail(@Query("id") userId: Int): Response<DataResponse<List<UserEntity>>>
+    @GET("/users/{userId}")
+    suspend fun getUserDetail(@Path("userId") userId: Int): UserEntity
 
     @GET("/photos")
     suspend fun getAllPhotos(): Response<DataResponse<List<PhotoEntity>>>

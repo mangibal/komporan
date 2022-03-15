@@ -3,6 +3,7 @@ package com.iqbalfauzi.komporan.koin
 import com.iqbalfauzi.komporan.presentation.main.MainViewModel
 import com.iqbalfauzi.komporan.presentation.main.home.HomeViewModel
 import com.iqbalfauzi.komporan.presentation.main.post.PostDetailViewModel
+import com.iqbalfauzi.komporan.presentation.main.user.UserDetailViewModel
 import com.iqbalfauzi.komporan.presentation.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.component.KoinApiExtension
@@ -19,4 +20,5 @@ val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { HomeViewModel() }
     viewModel { PostDetailViewModel() }
+    viewModel { UserDetailViewModel() }
 }

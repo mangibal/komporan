@@ -28,6 +28,18 @@ class RemoteDataSource(
         }
     }
 
+    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<UserEntity>> {
+        return flow {
+            try {
+                val response = apiService.getUserDetail(userId)
+                emit(ApiResponse.Success(response))
+            } catch (ex: Exception) {
+                emit(ApiResponse.Error(ex))
+                logError("Error Response", ex)
+            }
+        }
+    }
+
     suspend fun getPostComments(postId: Int): Flow<ApiResponse<List<CommentEntity>>> {
         return flow {
             try {

@@ -8,11 +8,15 @@ import com.google.android.material.appbar.MaterialToolbar
  * Created by Iqbal Fauzi at 12/03/22
  * iqbal.fauzi.if99@gmail.com
  */
-fun AppCompatActivity.initToolbar(toolbar: MaterialToolbar) {
+fun AppCompatActivity.initToolbar(toolbar: MaterialToolbar, title: String? = null) {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//    supportActionBar?.title = ""
+    title?.let { supportActionBar?.title = it }
     toolbar.setNavigationOnClickListener { onBackPressed() }
+}
+
+fun AppCompatActivity.setToolbarTitle(title: String) {
+    supportActionBar?.title = title
 }
 
 fun <T : View> T.onClick(block: () -> Unit) = setOnClickListener { block() }

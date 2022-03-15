@@ -48,7 +48,15 @@ class PostDetailActivity : BaseActivity<ActivityPostDetailBinding, PostDetailVie
         with(binding) {
             with(layoutPost) {
                 ivUserProfile.load(this.root.context.getDrawableCompat(R.drawable.ironman))
-                tvUsername.text = postEntity.userName
+                tvUsername.apply {
+                    text = postEntity.userName
+                    onClick {
+                        router.navigateToUserDetailScreen(
+                            this@PostDetailActivity,
+                            postEntity.userId
+                        )
+                    }
+                }
                 tvUserCompany.text = postEntity.userCompany
                 tvPostTitle.text = postEntity.title
                 root.background = null

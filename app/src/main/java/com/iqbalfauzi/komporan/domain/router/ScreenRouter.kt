@@ -2,7 +2,6 @@ package com.iqbalfauzi.komporan.domain.router
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
@@ -10,8 +9,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.external.extensions.logError
 import com.iqbalfauzi.komporan.domain.base.BaseActivity
-import com.iqbalfauzi.komporan.presentation.main.MainActivity
-import com.iqbalfauzi.komporan.presentation.splash.SplashActivity
 import org.koin.core.component.KoinApiExtension
 
 /**
@@ -24,14 +21,12 @@ class ScreenRouter(private val application: Application) : IScreenRouter {
     override fun navigateToMainScreen(context: Activity) {
         val screen = Intent(context, ActivityScreen.MainScreen.INTENT)
         screen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        openActivity(context, screen)
+        context.openActivity(screen)
     }
 
     override fun navigateToPostDetailScreen(context: Activity, postEntity: PostEntity) {
         val screen = Intent(context, ActivityScreen.PostDetailScreen.INTENT)
-
-        openActivity(
-            context,
+        context.openActivity(
             screen,
             bundleOf(
                 ActivityScreen.PostDetailScreen.POST_DATA_KEY to postEntity
@@ -39,16 +34,25 @@ class ScreenRouter(private val application: Application) : IScreenRouter {
         )
     }
 
-    private fun openActivity(
-        context: Activity,
+    override fun navigateToUserDetailScreen(context: Activity, userId: Int) {
+        val screen = Intent(context, ActivityScreen.UserDetailScreen.INTENT)
+        context.openActivity(
+            screen,
+            bundleOf(
+                ActivityScreen.UserDetailScreen.USER_ID_KEY to userId
+            )
+        )
+    }
+
+    private fun Activity.openActivity(
         intent: Intent,
         bundle: Bundle? = null,
         isFinish: Boolean = false
     ) {
         try {
             bundle?.let { intent.putExtras(bundle) }
-            intent.run { context.startActivity(this) }
-            if (isFinish) context.finish()
+            intent.run { startActivity(this) }
+            if (isFinish) finish()
         } catch (ex: ClassNotFoundException) {
             logError(ex.message.toString())
             sendBroadcastMessage()

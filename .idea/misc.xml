@@ -10,17 +10,23 @@
         <entry key="app/src/main/res/drawable/ic_account_inactive.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_account_selector.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.182" />
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.182" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_favorite_selector.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_home_selector.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_notification_active.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_notification_selector.xml" value="0.182" />
+        <entry key="app/src/main/res/drawable/ic_place.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.182" />
+        <entry key="app/src/main/res/drawable/ic_work.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/nav_selector.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/shadow_top.xml" value="0.182" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/activity_user_detail.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.3880208333333333" />

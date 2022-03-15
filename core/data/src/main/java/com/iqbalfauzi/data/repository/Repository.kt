@@ -2,7 +2,7 @@ package com.iqbalfauzi.data.repository
 
 import com.iqbalfauzi.data.local.CacheHelper
 import com.iqbalfauzi.data.local.LocalDataSource
-import com.iqbalfauzi.data.mapper.toSingleEntity
+import com.iqbalfauzi.data.mapper.toUserData
 import com.iqbalfauzi.data.model.ApiResponse
 import com.iqbalfauzi.data.model.comment.CommentEntity
 import com.iqbalfauzi.data.model.post.PostEntity
@@ -103,7 +103,7 @@ class Repository(
 
                             is ApiResponse.Success -> {
                                 val data = apiResponse.data.map {
-                                    it.toSingleEntity()
+                                    it.toUserData()
                                 }
 
                                 if (data.isNotEmpty()) {
@@ -116,6 +116,34 @@ class Repository(
                                 }
                             }
 
+                            is ApiResponse.Error -> {
+                                emit(
+                                    DataCallback.Error(
+                                        apiResponse.ex.message.toString(),
+                                        apiResponse.ex
+                                    )
+                                )
+                            }
+                        }
+                    }
+            } catch (ex: Exception) {
+                emit(DataCallback.Error(ex.message.toString(), ex))
+            }
+        }
+    }
+
+    override suspend fun getUserDetail(userId: Int): Flow<DataCallback<UserData>> {
+        return flow {
+            try {
+                emit(DataCallback.Loading())
+                remoteDataSource.getUserDetail(userId)
+                    .flowOn(Dispatchers.IO)
+                    .collect { apiResponse ->
+                        when (apiResponse) {
+                            is ApiResponse.Success -> {
+                                val data = apiResponse.data.toUserData()
+                                emit(DataCallback.Success(data))
+                            }
                             is ApiResponse.Error -> {
                                 emit(
                                     DataCallback.Error(

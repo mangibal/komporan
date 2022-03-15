@@ -2,6 +2,7 @@ package com.iqbalfauzi.komporan.domain.router
 
 import com.iqbalfauzi.komporan.presentation.main.MainActivity
 import com.iqbalfauzi.komporan.presentation.main.post.PostDetailActivity
+import com.iqbalfauzi.komporan.presentation.main.user.UserDetailActivity
 import com.iqbalfauzi.komporan.presentation.splash.SplashActivity
 import org.koin.core.component.KoinApiExtension
 
@@ -29,6 +30,12 @@ object ActivityScreen {
     object PostDetailScreen {
         val INTENT = PostDetailActivity::class.java
         const val POST_DATA_KEY = "postDataKey"
+    }
+
+    @KoinApiExtension
+    object UserDetailScreen {
+        val INTENT = UserDetailActivity::class.java
+        const val USER_ID_KEY = "userIdKey"
     }
 
 }

@@ -7,7 +7,7 @@ import com.iqbalfauzi.data.model.user.UserEntity
  * Created by Iqbal Fauzi at 15/03/22
  * iqbal.fauzi.if99@gmail.com
  */
-fun UserEntity.toSingleEntity(): UserData {
+fun UserEntity.toUserData(): UserData {
     return UserData(
         id,
         name,
