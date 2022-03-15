@@ -4,6 +4,7 @@ import com.iqbalfauzi.data.local.CacheHelper
 import com.iqbalfauzi.data.local.LocalDataSource
 import com.iqbalfauzi.data.mapper.toSingleEntity
 import com.iqbalfauzi.data.model.ApiResponse
+import com.iqbalfauzi.data.model.comment.CommentEntity
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.data.model.user.UserData
 import com.iqbalfauzi.data.remote.RemoteDataSource
@@ -26,6 +27,38 @@ class Repository(
             try {
                 emit(DataCallback.Loading())
                 remoteDataSource.getAllPosts()
+                    .flowOn(Dispatchers.IO)
+                    .collect { apiResponse ->
+                        when (apiResponse) {
+                            is ApiResponse.Success -> {
+                                val data = apiResponse.data
+                                if (data.isNotEmpty()) {
+                                    emit(DataCallback.Success(data))
+                                } else {
+                                    emit(DataCallback.Error("Data is Empty"))
+                                }
+                            }
+                            is ApiResponse.Error -> {
+                                emit(
+                                    DataCallback.Error(
+                                        apiResponse.ex.message.toString(),
+                                        apiResponse.ex
+                                    )
+                                )
+                            }
+                        }
+                    }
+            } catch (ex: Exception) {
+                emit(DataCallback.Error(ex.message.toString(), ex))
+            }
+        }
+    }
+
+    override suspend fun getPostComments(postId: Int): Flow<DataCallback<List<CommentEntity>>> {
+        return flow {
+            try {
+                emit(DataCallback.Loading())
+                remoteDataSource.getPostComments(postId)
                     .flowOn(Dispatchers.IO)
                     .collect { apiResponse ->
                         when (apiResponse) {

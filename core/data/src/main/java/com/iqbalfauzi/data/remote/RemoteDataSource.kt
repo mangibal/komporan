@@ -1,6 +1,7 @@
 package com.iqbalfauzi.data.remote
 
 import com.iqbalfauzi.data.model.ApiResponse
+import com.iqbalfauzi.data.model.comment.CommentEntity
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.data.model.user.UserEntity
 import com.iqbalfauzi.external.extensions.logError
@@ -19,6 +20,18 @@ class RemoteDataSource(
         return flow {
             try {
                 val response = apiService.getAllUsers()
+                emit(ApiResponse.Success(response))
+            } catch (ex: Exception) {
+                emit(ApiResponse.Error(ex))
+                logError("Error Response", ex)
+            }
+        }
+    }
+
+    suspend fun getPostComments(postId: Int): Flow<ApiResponse<List<CommentEntity>>> {
+        return flow {
+            try {
+                val response = apiService.getPostComments(postId)
                 emit(ApiResponse.Success(response))
             } catch (ex: Exception) {
                 emit(ApiResponse.Error(ex))

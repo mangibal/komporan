@@ -6,36 +6,126 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.post.PostDetailActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/title_news" />
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <include
-        android:id="@+id/layout_post"
-        layout="@layout/item_post"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/title_news" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_post_body"
-        style="@style/TextViewRobotoRegular14"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen20"
-        android:layout_marginTop="@dimen/dimen8"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@color/grey_900"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_post"
-        tools:text="sunt aut facere repellat provident occaecati excepturi optio reprehenderit" />
+        app:layout_constraintTop_toBottomOf="@id/appbar_post">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/layout_post"
+                layout="@layout/item_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_post_body"
+                style="@style/TextViewRobotoRegular14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen20"
+                android:layout_marginTop="@dimen/dimen16"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/grey_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_post"
+                tools:text="sunt aut facere repellat provident occaecati excepturi optio reprehenderit" />
+
+            <View
+                android:id="@+id/view_divider_post"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen16"
+                android:background="@color/grey_300"
+                app:layout_constraintEnd_toEndOf="@id/tv_post_body"
+                app:layout_constraintStart_toStartOf="@id/tv_post_body"
+                app:layout_constraintTop_toBottomOf="@id/tv_post_body" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_comments_title"
+                style="@style/TextViewRobotoBold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen16"
+                app:layout_constraintStart_toStartOf="@id/view_divider_post"
+                app:layout_constraintTop_toBottomOf="@id/view_divider_post"
+                tools:text="8 Comments" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="pb_loading, tv_loading" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pb_loading"
+                android:layout_width="160dp"
+                android:layout_height="6dp"
+                android:indeterminate="true"
+                android:progressTint="@color/purple_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_comments_title"
+                app:layout_constraintVertical_bias="0.25"
+                app:trackCornerRadius="6dp"
+                app:trackThickness="6dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_loading"
+                style="@style/TextViewRobotoMedium14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen8"
+                android:text="@string/msg_loading"
+                app:layout_constraintEnd_toEndOf="@id/pb_loading"
+                app:layout_constraintStart_toStartOf="@id/pb_loading"
+                app:layout_constraintTop_toBottomOf="@id/pb_loading" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_comments_title"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_comment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

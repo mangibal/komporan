@@ -23,7 +23,7 @@ interface ApiService {
     suspend fun getPost(@Path("postId") postId: Int): Response<PostEntity>
 
     @GET("/posts/{postId}/comments")
-    suspend fun getPostComments(@Path("postId") postId: Int): Response<DataResponse<List<CommentEntity>>>
+    suspend fun getPostComments(@Path("postId") postId: Int): List<CommentEntity>
 
     @GET("/comments")
     suspend fun getAllComments(): Response<DataResponse<List<PostEntity>>>

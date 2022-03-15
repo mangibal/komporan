@@ -11,7 +11,7 @@ import com.google.android.material.appbar.MaterialToolbar
 fun AppCompatActivity.initToolbar(toolbar: MaterialToolbar) {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.title = ""
+//    supportActionBar?.title = ""
     toolbar.setNavigationOnClickListener { onBackPressed() }
 }
 

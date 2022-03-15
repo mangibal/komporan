@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_loading">Loading, please wait…</string>
+    <string name="msg_empty_comments">We don\'t have any comments here</string>
+
+    <string name="action_like">Like · </string>
+    <string name="action_reply">Reply · </string>
+    <string name="action_report">Report</string>
 </resources>
