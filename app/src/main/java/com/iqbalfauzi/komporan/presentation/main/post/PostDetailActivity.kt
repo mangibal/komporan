@@ -1,12 +1,22 @@
 package com.iqbalfauzi.komporan.presentation.main.post
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.iqbalfauzi.komporan.R
+import com.iqbalfauzi.komporan.databinding.ActivityPostDetailBinding
+import com.iqbalfauzi.komporan.domain.base.BaseActivity
+import org.koin.core.component.KoinApiExtension
 
-class PostDetailActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_detail)
+@KoinApiExtension
+class PostDetailActivity : BaseActivity<ActivityPostDetailBinding, PostDetailViewModel>(
+    ActivityPostDetailBinding::inflate,
+    PostDetailViewModel::class
+) {
+
+    override fun onInitUI(savedInstanceState: Bundle?) {
+
     }
+
+    override fun onInitData() {
+
+    }
+
 }

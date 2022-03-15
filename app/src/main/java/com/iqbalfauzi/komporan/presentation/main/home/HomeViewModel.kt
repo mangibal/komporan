@@ -25,9 +25,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun getAllUsers() {
         viewModelScope.launch {
-            repository.getAllUsersFromCache().collect {
-                _allUsers.postValue(it)
-            }
+            _allUsers.postValue(repository.getAllUsersFromCache())
         }
     }
 

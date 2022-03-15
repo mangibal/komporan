@@ -12,5 +12,5 @@ import kotlinx.coroutines.flow.Flow
 interface IRepository {
     suspend fun getAllPosts(): Flow<DataCallback<List<PostEntity>>>
     suspend fun getAllUsers(): Flow<DataCallback<List<UserData>>>
-    suspend fun getAllUsersFromCache(): Flow<List<UserData>>
+    fun getAllUsersFromCache(): List<UserData>
 }

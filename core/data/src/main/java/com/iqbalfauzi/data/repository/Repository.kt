@@ -1,5 +1,6 @@
 package com.iqbalfauzi.data.repository
 
+import com.iqbalfauzi.data.local.CacheHelper
 import com.iqbalfauzi.data.local.LocalDataSource
 import com.iqbalfauzi.data.mapper.toSingleEntity
 import com.iqbalfauzi.data.model.ApiResponse
@@ -8,7 +9,6 @@ import com.iqbalfauzi.data.model.user.UserData
 import com.iqbalfauzi.data.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -58,10 +58,9 @@ class Repository(
             try {
                 emit(DataCallback.Loading())
 
-                localDataSource.getAllUsers().collect {
-                    if (it.isNotEmpty()) {
-                        emit(DataCallback.Success(it))
-                    }
+                val cache = CacheHelper.getUsersCache()
+                if (cache.isNotEmpty()) {
+                    emit(DataCallback.Success(cache))
                 }
 
                 remoteDataSource.getAllUsers()
@@ -75,8 +74,10 @@ class Repository(
                                 }
 
                                 if (data.isNotEmpty()) {
-                                    localDataSource.insertAllUser(data)
-                                    emit(DataCallback.Success(data))
+                                    if (data != cache) {
+                                        CacheHelper.createUsersCache(data)
+                                        emit(DataCallback.Success(data))
+                                    }
                                 } else {
                                     emit(DataCallback.Error("Data is Empty"))
                                 }
@@ -98,8 +99,8 @@ class Repository(
         }
     }
 
-    override suspend fun getAllUsersFromCache(): Flow<List<UserData>> {
-        return localDataSource.getAllUsers()
+    override fun getAllUsersFromCache(): List<UserData> {
+        return CacheHelper.getUsersCache()
     }
 
 

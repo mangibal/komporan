@@ -33,14 +33,19 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(
             observe(isSuccess) { response ->
                 when (response) {
                     is DataCallback.Loading -> {
-                        binding.pbLoading.show()
+                        showToast("Please wait, we're populating your data!")
                     }
                     is DataCallback.Error -> {
                         showToast(response.message)
                     }
                     is DataCallback.Success -> {
                         if (response.value.isNotEmpty()) {
-                            router.navigateToMainScreen(this@SplashActivity)
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                delay(1000)
+                                withContext(Dispatchers.Main) {
+                                    router.navigateToMainScreen(this@SplashActivity)
+                                }
+                            }
                         } else {
                             showToast("Please wait, we're populating your data!")
                         }
