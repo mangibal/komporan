@@ -2,12 +2,17 @@ package com.iqbalfauzi.external.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.iqbalfauzi.external.BuildConfig
+import com.iqbalfauzi.external.R
 
 /**
  * Created by Iqbal Fauzi at 12/03/22
@@ -33,6 +38,54 @@ fun getShareMessageFormat(
     created by %s
     Kumparan
 """.trimIndent(), title, userName)
+
+fun Context.openWhatsApp(contact: String) {
+    val url = "https://api.whatsapp.com/send?phone=$contact"
+    try {
+        val pm: PackageManager = packageManager
+        pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    } catch (e: PackageManager.NameNotFoundException) {
+        showToast("Whatsapp app not installed in your phone")
+        e.printStackTrace()
+    }
+}
+
+fun String.toWebUri(): Uri {
+    return (if (startsWith("http://") || startsWith("https://")) this else "https://$this").toUri()
+}
+
+fun Context.openWebPage(url: String): Boolean {
+    // Format the URI properly.
+    val uri = url.toWebUri()
+    // Try using Chrome Custom Tabs.
+    try {
+        val intent = CustomTabsIntent.Builder()
+            .setToolbarColor(getColorCompat(R.color.purple_500))
+            .setShowTitle(true)
+            .build()
+        intent.launchUrl(this, uri)
+        return true
+    } catch (ignored: Exception) {
+        logError(ignored.message.toString())
+    }
+
+    // Fall back to launching a default web browser intent.
+    try {
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+            return true
+        }
+    } catch (ignored: Exception) {
+        logError(ignored.message.toString())
+    }
+
+    // We were unable to show the web page.
+    return false
+}
 
 fun Context.sharePost(message: String) {
     val sendIntent: Intent = Intent().apply {

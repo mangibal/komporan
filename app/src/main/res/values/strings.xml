@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Komporan</string>
+    <string name="label_profile">My Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_loading">Loading, please wait…</string>
     <string name="msg_empty_comments">We don\'t have any comments here</string>
+    <string name="msg_will_be_available">Will Be Available, Later!</string>
 
     <string name="action_like">Like · </string>
     <string name="action_reply">Reply · </string>
     <string name="action_report">Report</string>
+
+    <string name="action_whatsapp">WhatsApp Me!</string>
+    <string name="action_my_ig">My Instagram!</string>
 </resources>

@@ -1,60 +1,34 @@
 package com.iqbalfauzi.komporan.presentation.main.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import coil.load
+import com.iqbalfauzi.external.extensions.*
 import com.iqbalfauzi.komporan.R
+import com.iqbalfauzi.komporan.databinding.FragmentProfileBinding
+import com.iqbalfauzi.komporan.domain.base.BaseFragment
+import org.koin.core.component.KoinApiExtension
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@KoinApiExtension
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(
+    FragmentProfileBinding::inflate,
+    ProfileViewModel::class
+) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onInitUI(savedInstanceState: Bundle?) {
+        with(binding) {
+            ivUserProfile.loadImage("https://firebasestorage.googleapis.com/v0/b/komporan-40342.appspot.com/o/IMG_20220216_064442.jpg?alt=media&token=066559a6-5bf9-4977-b856-149a63163a46")
+            tvUsername.text = String.format("Iqbal Fauzi")
+            tvEmail.text = String.format("iqbal.fauzi.if99@gmail.com")
+            tvCompany.text = String.format("Komporan")
+            tvAddress.text = String.format("Bandung")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            clWa.onClick { requireContext().openWhatsApp("+6287822882668") }
+            clIg.onClick { requireContext().openWebPage("https://www.instagram.com/iqbalspace/") }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    override fun onInitData() {
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
