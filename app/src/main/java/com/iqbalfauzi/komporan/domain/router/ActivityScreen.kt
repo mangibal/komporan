@@ -1,5 +1,6 @@
 package com.iqbalfauzi.komporan.domain.router
 
+import com.iqbalfauzi.komporan.presentation.imageviewer.ImageViewerActivity
 import com.iqbalfauzi.komporan.presentation.main.MainActivity
 import com.iqbalfauzi.komporan.presentation.main.post.PostDetailActivity
 import com.iqbalfauzi.komporan.presentation.main.user.UserDetailActivity
@@ -36,6 +37,13 @@ object ActivityScreen {
     object UserDetailScreen {
         val INTENT = UserDetailActivity::class.java
         const val USER_ID_KEY = "userIdKey"
+    }
+
+    @KoinApiExtension
+    object ImageViewerScreen {
+        val INTENT = ImageViewerActivity::class.java
+        const val PHOTOS_DATA_KEY = "photosDataKey"
+        const val POSITION_KEY = "currentPositionKey"
     }
 
 }

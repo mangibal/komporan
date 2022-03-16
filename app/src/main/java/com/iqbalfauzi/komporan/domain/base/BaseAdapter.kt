@@ -47,6 +47,7 @@ abstract class BaseAdapter<T, VB: ViewBinding>: RecyclerView.Adapter<RecyclerVie
 
     fun add(item: T) {
         mListItems.add(item)
+        notifyDataSetChanged()
     }
 
     fun addAll(data: List<T>) {

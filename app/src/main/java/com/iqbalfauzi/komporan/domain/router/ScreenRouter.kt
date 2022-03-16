@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.iqbalfauzi.data.model.photo.PhotoEntity
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.external.extensions.logError
 import com.iqbalfauzi.komporan.domain.base.BaseActivity
@@ -40,6 +41,17 @@ class ScreenRouter(private val application: Application) : IScreenRouter {
             screen,
             bundleOf(
                 ActivityScreen.UserDetailScreen.USER_ID_KEY to userId
+            )
+        )
+    }
+
+    override fun navigateToImageScreen(context: Activity, photos: List<PhotoEntity>, position: Int) {
+        val screen = Intent(context, ActivityScreen.ImageViewerScreen.INTENT)
+        context.openActivity(
+            screen,
+            bundleOf(
+                ActivityScreen.ImageViewerScreen.PHOTOS_DATA_KEY to photos,
+                ActivityScreen.ImageViewerScreen.POSITION_KEY to position
             )
         )
     }

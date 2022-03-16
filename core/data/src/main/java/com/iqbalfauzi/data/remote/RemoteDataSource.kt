@@ -1,7 +1,9 @@
 package com.iqbalfauzi.data.remote
 
 import com.iqbalfauzi.data.model.ApiResponse
+import com.iqbalfauzi.data.model.album.AlbumEntity
 import com.iqbalfauzi.data.model.comment.CommentEntity
+import com.iqbalfauzi.data.model.photo.PhotoEntity
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.data.model.user.UserEntity
 import com.iqbalfauzi.external.extensions.logError
@@ -32,6 +34,30 @@ class RemoteDataSource(
         return flow {
             try {
                 val response = apiService.getUserDetail(userId)
+                emit(ApiResponse.Success(response))
+            } catch (ex: Exception) {
+                emit(ApiResponse.Error(ex))
+                logError("Error Response", ex)
+            }
+        }
+    }
+
+    suspend fun getUserAlbums(userId: Int): Flow<ApiResponse<List<AlbumEntity>>> {
+        return flow {
+            try {
+                val response = apiService.getUserAlbums(userId)
+                emit(ApiResponse.Success(response))
+            } catch (ex: Exception) {
+                emit(ApiResponse.Error(ex))
+                logError("Error Response", ex)
+            }
+        }
+    }
+
+    suspend fun getAlbumPhotos(albumId: Int): Flow<ApiResponse<List<PhotoEntity>>> {
+        return flow {
+            try {
+                val response = apiService.getAlbumPhotos(albumId)
                 emit(ApiResponse.Success(response))
             } catch (ex: Exception) {
                 emit(ApiResponse.Error(ex))

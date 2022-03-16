@@ -106,6 +106,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
+    override fun onClickUser(userId: Int) {
+        router.navigateToUserDetailScreen(
+            requireActivity(),
+            userId
+        )
+    }
+
     override fun onClickShare(data: PostEntity) {
         val message = getShareMessageFormat(data.title, data.userName)
         requireContext().sharePost(message)

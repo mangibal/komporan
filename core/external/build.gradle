@@ -35,6 +35,7 @@ dependencies {
      * Imager Loader
      * */
     api("io.coil-kt:coil:2.0.0-rc01")
+    api("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     /**
      * Koin - Dependency Injection

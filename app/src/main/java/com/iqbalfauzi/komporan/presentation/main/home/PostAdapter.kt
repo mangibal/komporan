@@ -20,6 +20,7 @@ class PostAdapter(private val listener: OnShareListener) :
     BaseAdapter<PostEntity, ItemPostBinding>() {
 
     interface OnShareListener {
+        fun onClickUser(userId: Int)
         fun onClickShare(data: PostEntity)
     }
 
@@ -35,7 +36,12 @@ class PostAdapter(private val listener: OnShareListener) :
         override fun bind(data: PostEntity) {
             with(binding) {
                 ivUserProfile.load(this.root.context.getDrawableCompat(R.drawable.ironman))
-                tvUsername.text = data.userName
+                tvUsername.apply {
+                    text = data.userName
+                    onClick {
+                        listener.onClickUser(data.userId)
+                    }
+                }
                 tvUserCompany.text = data.userCompany
                 tvPostTitle.text = data.title
                 this.root.onClick { onItemClickListener.invoke(data) }

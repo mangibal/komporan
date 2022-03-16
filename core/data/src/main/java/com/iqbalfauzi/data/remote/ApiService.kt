@@ -1,6 +1,7 @@
 package com.iqbalfauzi.data.remote
 
 import com.iqbalfauzi.data.model.DataResponse
+import com.iqbalfauzi.data.model.album.AlbumEntity
 import com.iqbalfauzi.data.model.comment.CommentEntity
 import com.iqbalfauzi.data.model.photo.PhotoEntity
 import com.iqbalfauzi.data.model.post.PostEntity
@@ -19,14 +20,8 @@ interface ApiService {
     @GET("/posts")
     suspend fun getAllPosts(): List<PostEntity>
 
-    @GET("/posts/{postId}")
-    suspend fun getPost(@Path("postId") postId: Int): Response<PostEntity>
-
     @GET("/posts/{postId}/comments")
     suspend fun getPostComments(@Path("postId") postId: Int): List<CommentEntity>
-
-    @GET("/comments")
-    suspend fun getAllComments(): Response<DataResponse<List<PostEntity>>>
 
     @GET("/users")
     suspend fun getAllUsers(): List<UserEntity>
@@ -34,7 +29,10 @@ interface ApiService {
     @GET("/users/{userId}")
     suspend fun getUserDetail(@Path("userId") userId: Int): UserEntity
 
+    @GET("/albums")
+    suspend fun getUserAlbums(@Query("userId") userId: Int): List<AlbumEntity>
+
     @GET("/photos")
-    suspend fun getAllPhotos(): Response<DataResponse<List<PhotoEntity>>>
+    suspend fun getAlbumPhotos(@Query("albumId") albumId: Int): List<PhotoEntity>
 
 }

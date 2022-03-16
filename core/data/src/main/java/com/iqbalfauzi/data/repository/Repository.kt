@@ -4,7 +4,9 @@ import com.iqbalfauzi.data.local.CacheHelper
 import com.iqbalfauzi.data.local.LocalDataSource
 import com.iqbalfauzi.data.mapper.toUserData
 import com.iqbalfauzi.data.model.ApiResponse
+import com.iqbalfauzi.data.model.album.AlbumEntity
 import com.iqbalfauzi.data.model.comment.CommentEntity
+import com.iqbalfauzi.data.model.photo.PhotoEntity
 import com.iqbalfauzi.data.model.post.PostEntity
 import com.iqbalfauzi.data.model.user.UserData
 import com.iqbalfauzi.data.remote.RemoteDataSource
@@ -143,6 +145,60 @@ class Repository(
                             is ApiResponse.Success -> {
                                 val data = apiResponse.data.toUserData()
                                 emit(DataCallback.Success(data))
+                            }
+                            is ApiResponse.Error -> {
+                                emit(
+                                    DataCallback.Error(
+                                        apiResponse.ex.message.toString(),
+                                        apiResponse.ex
+                                    )
+                                )
+                            }
+                        }
+                    }
+            } catch (ex: Exception) {
+                emit(DataCallback.Error(ex.message.toString(), ex))
+            }
+        }
+    }
+
+    override suspend fun getUserAlbums(userId: Int): Flow<DataCallback<List<AlbumEntity>>> {
+        return flow {
+            try {
+                emit(DataCallback.Loading())
+                remoteDataSource.getUserAlbums(userId)
+                    .flowOn(Dispatchers.IO)
+                    .collect { apiResponse ->
+                        when (apiResponse) {
+                            is ApiResponse.Success -> {
+                                emit(DataCallback.Success(apiResponse.data))
+                            }
+                            is ApiResponse.Error -> {
+                                emit(
+                                    DataCallback.Error(
+                                        apiResponse.ex.message.toString(),
+                                        apiResponse.ex
+                                    )
+                                )
+                            }
+                        }
+                    }
+            } catch (ex: Exception) {
+                emit(DataCallback.Error(ex.message.toString(), ex))
+            }
+        }
+    }
+
+    override suspend fun getAlbumPhotos(albumId: Int): Flow<DataCallback<List<PhotoEntity>>> {
+        return flow {
+            try {
+                emit(DataCallback.Loading())
+                remoteDataSource.getAlbumPhotos(albumId)
+                    .flowOn(Dispatchers.IO)
+                    .collect { apiResponse ->
+                        when (apiResponse) {
+                            is ApiResponse.Success -> {
+                                emit(DataCallback.Success(apiResponse.data))
                             }
                             is ApiResponse.Error -> {
                                 emit(
